@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cutesy Calculator</title>
+  <link rel="stylesheet" href="calculator.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600&family=Alegreya:wght@400;500&family=Aleo:wght@100;200;300;400;500;700&family=Arapey&family=Bebas+Neue&family=Lato:wght@100;300;400;700;900&family=Merriweather:wght@300;400&family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Oswald:wght@300;400;500;600&family=Roboto:wght@400;500;700&family=Source+Code+Pro:wght@600&display=swap"
+    rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <section class="header">
+      <h1>Cutesy Calculator</h1>
+      <input type="text" id="display">
+    </section>
+    <section class="buttons">
+      <button onclick="getNumber(1)">1</button>
+      <button onclick="getNumber(2)">2</button>
+      <button onclick="getNumber(3)">3</button>
+      <button onclick="getOperator('+')">+</button>
+      
+      <button onclick="getNumber(4)">4</button>
+      <button onclick="getNumber(5)">5</button>
+      <button onclick="getNumber(6)">6</button>
+      <button onclick="getOperator('-')">-</button>
+      
+      <button onclick="getNumber(7)">7</button>
+      <button onclick="getNumber(8)">8</button>
+      <button onclick="getNumber(9)">9</button>
+      <button onclick="getOperator('*')">*</button>
+      
+      <button onclick="clearDisplay()">CO</button>
+      <button onclick="getNumber('0')">0</button>
+      <button onclick="calculateEquals('=')">=</button>
+      <button onclick="getOperator('/')">/</button>
+     
+      
+    </section>
+  </div>
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  <script src="calculator.js"></script> 
+</body>
+</html>
