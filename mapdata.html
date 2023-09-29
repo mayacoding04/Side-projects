@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch JSON from API and map lat lon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600&family=Alegreya:wght@400;500&family=Aleo:wght@100;200;300;400;500;700&family=Arapey&family=Bebas+Neue&family=Lato:wght@100;300;400;700;900&family=Merriweather:wght@300;400&family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Oswald:wght@300;400;500;600&family=Roboto:wght@400;500;700&family=Source+Code+Pro:wght@600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+      
+      
+      
+      
+      
+      <style>
+        body {
+          font-family: Montserrat;
+          background-color: rgb(223, 223, 223);
+        }
+        #issMap {
+          height: 580px;
+          width: 60%;
+          margin: 0 auto;
+          
+        }
+         h1 {
+          text-align: center;
+          font-size: 50px;
+          font-weight: 400;
+          margin-bottom: 0;
+         }
+        p {
+          text-align: center;
+          font-weight: 600;
+        }
+      </style>
+
+</head>
+<body>
+  <h1>Where is the ISS?</h1>
+
+  <p>latitude: <span id="lat"></span><br>
+  longitude: <span id="lon"></span></p>
+  
+  <div id="issMap"></div>
+  
+  
+ 
+  
+  <script>
+    // Making a map and tiles
+    const mymap = L.map('issMap').setView([0, 0], 1);
+    const attribution = '© OpenStreetMap';
+
+    const tileUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+    const tiles = L.tileLayer(tileUrl, { attribution });
+    tiles.addTo(mymap);
+
+    // Making a marker with a custom icon
+
+
+    const issIcon = L.icon({
+        iconUrl: 'iss.png',
+        iconSize: [60, 42],
+        iconAnchor: [25, 16],
+      });
+
+
+    const marker = L.marker([0, 0], { icon: issIcon}).addTo(mymap);
+
+      
+
+
+    const api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
+
+    let firstTime = true;
+    async function getISS() {
+        const response = await fetch(api_url);
+        const data = await response.json();
+        const { latitude, longitude} = data;
+
+        //L.marker([latitude, longitude]).addTo(mymap);
+        mymap.setView([latitude, longitude], mymap.getZoom());
+        marker.setLatLng([latitude, longitude]);
+       
+        document.getElementById('lat').textContent = latitude.toFixed(2);
+        //toFixed reduces the # to wtvr specified decimal places
+        document.getElementById('lon').textContent = longitude.toFixed(2);
+
+        
+      }     
+    
+    getISS();
+//take this function and have it refresh each 1000ms
+    setInterval(getISS, 1000);
+    
+    
+    
+    
+  </script>
+  
+</body>
+</html>
